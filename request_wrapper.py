@@ -176,22 +176,37 @@ class RequestWrapper:
 
         return ret_json
 
+def printHelp():
+    print( "usage: ")
+    print( "  $ python3", sys.argv[0], "<optional: --ca-only> <city-name>" )
+    print()
+    print( "example 1: ")
+    print( "  $ python3", sys.argv[0], "Carlsbad" )
+    print( "example 2: ")
+    print( "  $ python3", sys.argv[0], "--ca-only Carlsbad" )
 
     
 if __name__ == '__main__':
 
-    if len(sys.argv) != 2:
-        print( "usage: ")
-        print( "$ python3", sys.argv[0], "<city-name>" )
-        print( "example: ")
-        print( "python3", sys.argv[0], "\"San Diego\"" )
+    if len(sys.argv) == 2:
+        caOnly=False
+        city=sys.argv[1]
+        print( "query", city )
+    elif len(sys.argv) == 3: 
+        if sys.argv[1] == "--ca-only":
+            caOnly=True
+        city = sys.argv[2]
+        print( "query", city, "within only CA" )
+    else:
+        printHelp()
         sys.exit()
-
-    city=sys.argv[1]
-
+        
     request_wrapper_wikidata = RequestWrapper(baseuri = 'https://query.wikidata.org/sparql')
 
-    print(request_wrapper_wikidata.wikidata_query_withinstate(city))
+    if caOnly:
+        print(request_wrapper_wikidata.wikidata_query_withinstate(city))
+    else:
+        print(request_wrapper_wikidata.wikidata_query(city)) 
 
     # Zekun's original examples
     #print(request_wrapper_wikidata.wikidata_nearby_query('Q370771'))
