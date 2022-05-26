@@ -1,6 +1,7 @@
 import requests
 import pdb
 import time
+import sys
 
 # for linkedgeodata: #http://linkedgeodata.org/sparql
 
@@ -178,9 +179,23 @@ class RequestWrapper:
 
     
 if __name__ == '__main__':
+
+    if len(sys.argv) != 2:
+        print( "usage: ")
+        print( "$ python3", sys.argv[0], "<city-name>" )
+        print( "example: ")
+        print( "python3", sys.argv[0], "\"San Diego\"" )
+        sys.exit()
+
+    city=sys.argv[1]
+
     request_wrapper_wikidata = RequestWrapper(baseuri = 'https://query.wikidata.org/sparql')
+
+    print(request_wrapper_wikidata.wikidata_query_withinstate(city))
+
+    # Zekun's original examples
     #print(request_wrapper_wikidata.wikidata_nearby_query('Q370771'))
     #print(request_wrapper_wikidata.wikidata_query_withinstate('San Bernardino'))
 
     # not working now
-    print(request_wrapper_wikidata.linkedgeodata_query('San Bernardino'))
+    #print(request_wrapper_wikidata.linkedgeodata_query('San Bernardino'))
