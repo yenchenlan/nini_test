@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Path to your bash script
-    $scriptPath = '/var/www/html/classroom/chester/script.sh';
+    $scriptPath = '/var/www/html/classroom/chester/nini_test/script.sh';
     $branch = $_POST['branch'];
 
     // Make sure the script is executable
